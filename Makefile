@@ -1,5 +1,22 @@
 .PHONY: all, build
 
+ifeq ($(OS), Windows_NT)
+
+COMPILER            := gcc
+SOURCE_FILES        := ./src/*.c
+BUILD_NAME          := get_stuff
+BUILD_LOCATION      := ./bin
+INCLUDE_LOCATIONS   := 
+LIBRARY_LOCATIONS   := 
+LIBRARIES           := -lws2_32
+FRAMEWORK_LOCATIONS := 
+FRAMEWORKS          := 
+COMPILER_FLAGS      := 
+
+$(info Windows)
+
+else
+
 COMPILER            := gcc
 SOURCE_FILES        := ./src/*.c
 BUILD_NAME          := get_stuff
@@ -9,7 +26,11 @@ LIBRARY_LOCATIONS   := -L/opt/homebrew/lib
 LIBRARIES           := 
 FRAMEWORK_LOCATIONS := 
 FRAMEWORKS          := 
-COMPILER_FLAGS      := # -std=c2x
+COMPILER_FLAGS      := -std=c2x
+
+$(info Unix)
+
+endif
 
 all: build
 
