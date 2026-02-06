@@ -9,7 +9,7 @@ LIBRARY_LOCATIONS   := -L/opt/homebrew/lib
 LIBRARIES           := 
 FRAMEWORK_LOCATIONS := 
 FRAMEWORKS          := 
-COMPILER_FLAGS      := -std=c2x
+COMPILER_FLAGS      := # -std=c2x
 
 all: build
 
