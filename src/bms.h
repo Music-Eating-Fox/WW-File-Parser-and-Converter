@@ -521,7 +521,7 @@ void BMS_parse_cmd_finish(u8 *stack_pointer, FILE *bms_pointer, FILE *txt_output
 	fseek(bms_pointer, *stack_pointer, SEEK_SET);
 	stack_pointer--;
 
-	fprintf(txt_output_pointer, "cmdFinish\n");
+	fprintf(txt_output_pointer, "cmdFinish\n\n");
 }
 
 //

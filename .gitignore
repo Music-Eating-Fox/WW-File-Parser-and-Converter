@@ -3,5 +3,5 @@ data/
 bin/
 .DS_Store
 hex/
-.hexpat
-.hexproj
+*.hexpat
+*.hexproj

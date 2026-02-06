@@ -1,7 +1,12 @@
 #pragma once
 
 #include "rarc.h"
-#include <arpa/inet.h>
+
+#ifdef _WIN32
+	#include <winsock2.h>
+#else
+	#include <arpa/inet.h>
+#endif
 
 void fread8(u8 *buffer, size_t nitems, FILE *stream) {
 	fread(buffer, sizeof(u8), nitems, stream);

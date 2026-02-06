@@ -25,11 +25,11 @@ int main(int argc, const char **argv) {
 			// FILE *txt_output_pointer = stderr;
 
 			if (!bms_pointer) {
-				fprintf(stderr, "\033[1;31mFATAL: Failed to open file \"%s\"!\n\033[0m", input_file_name);
+				fprintf(stderr, "\033[1;41;37mFATAL: Failed to open file \"%s\"!\n\033[0m", input_file_name);
 			}
 
 			if (!txt_output_pointer) {
-				fprintf(stderr, "\033[1;31mFATAL: Failed to create output file \"%s\"!\n\033[0m", output_file_name);
+				fprintf(stderr, "\033[1;41;37mFATAL: Failed to create output file \"%s\"!\n\033[0m", output_file_name);
 			}
 
 			BMS_parse(bms_pointer, txt_output_pointer);
@@ -42,7 +42,7 @@ int main(int argc, const char **argv) {
 	FILE *file_pointer_string = fopen("../data/JaiSeqs.arc", "r" );
 
 	if (!file_pointer_binary || !file_pointer_string) {
-		fprintf(stderr, "[FATAL]: Failed to open file \"data/JaiSeqs.arc\"; if you have not supplied this file, please do so!\n");
+		fprintf(stderr, "\033[1;41;37mFATAL: Failed to open file \"data/JaiSeqs.arc\"; if you have not supplied this file, please do so!\n");
 
 		fclose(file_pointer_binary);
 		fclose(file_pointer_string);
