@@ -41,6 +41,15 @@ int main(int argc, const char **argv) {
 	FILE *file_pointer_binary = fopen("../data/JaiSeqs.arc", "rb");
 	FILE *file_pointer_string = fopen("../data/JaiSeqs.arc", "r" );
 
+	if (!file_pointer_binary || !file_pointer_string) {
+		fprintf(stderr, "[FATAL]: Failed to open file \"data/JaiSeqs.arc\"; if you have not supplied this file, please do so!\n");
+
+		fclose(file_pointer_binary);
+		fclose(file_pointer_string);
+
+		exit(0);
+	}
+
 	RARC rarc = { 0 };
 	rarc.header = RARC_read_header(file_pointer_binary);
 
