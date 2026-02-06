@@ -539,9 +539,13 @@ void BMS_parse(FILE *bms_pointer, FILE *txt_output_pointer) {
 	u8  stack[256];
 	u8 *stack_pointer = &stack[0] - 1;
 
+	fseek(bms_pointer, 0l, SEEK_END);
+	u64 safety_limit = ftell(bms_pointer) * 2l;
+	fseek(bms_pointer, 0l, SEEK_SET);
+
 	u32 safety = 0;
 
-	while (fread(&current_byte, 1, 1, bms_pointer) == 1 && safety++ < 1000) {
+	while (fread(&current_byte, 1, 1, bms_pointer) == 1 && safety++ < safety_limit) {
 
 		fprintf(txt_output_pointer, "[0x%04lX] 0x%02X: ", ftell(bms_pointer) - 1l, current_byte);
 
