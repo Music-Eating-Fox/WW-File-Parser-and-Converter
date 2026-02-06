@@ -1,0 +1,999 @@
+----- RARC FILE -----
+  - Header:
+      - File Type              : RARC
+      - Size                   : 0x00127B40
+      - Data Header Offset     : 0x00000020
+      - File Data Offset       : 0x00000C40
+      - File Data Length       : 0x00126EE0
+      - MRAM Size              : 0x00126EE0
+      - ARAM Size              : 0x00000000
+      - DVD Size               : 0x00000000
+  -  Data Header:
+      - Directory Nodes        : 1
+      - Directory Offset       : 0x00000020
+      - File Nodes             : 95
+      - File Offset            : 0x00000040
+      - String Table Size      : 0x00000480
+      - String Table Offset    : 0x07C0
+      - Keep File IDs Synced   : True
+  -  Directory Node Section:
+      - Type                   : ROOT
+      - String Table Offset    : 0x00000005
+      - Directory Name Hash    : 1324
+      - File Nodes             : 95
+      - First File Node Offset : 0x00000000
+      - Name                   : bms
+  - File Node:
+      - Node index             : 0
+      - File Name Hash         : 9094
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0009
+      - File Data Offset       : 0x00000000
+      - File Data Size         : 0x00003AA0
+      - Name                   : baachan.bms
+      - Location               : ./files/bms/baachan.bms
+  - File Node:
+      - Node index             : 1
+      - File Name Hash         : 14806
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0015
+      - File Data Offset       : 0x00003AA0
+      - File Data Size         : 0x00002820
+      - Name                   : bigpow.bms
+      - Location               : ./files/bms/bigpow.bms
+  - File Node:
+      - Node index             : 2
+      - File Name Hash         : 1559
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0020
+      - File Data Offset       : 0x000062C0
+      - File Data Size         : 0x000052A0
+      - Name                   : bird.bms
+      - Location               : ./files/bms/bird.bms
+  - File Node:
+      - Node index             : 3
+      - File Name Hash         : 3179
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0029
+      - File Data Offset       : 0x0000B560
+      - File Data Size         : 0x00002740
+      - Name                   : boco.bms
+      - Location               : ./files/bms/boco.bms
+  - File Node:
+      - Node index             : 4
+      - File Name Hash         : 12515
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0032
+      - File Data Offset       : 0x0000DCA0
+      - File Data Size         : 0x00000420
+      - Name                   : death_vl.bms
+      - Location               : ./files/bms/death_vl.bms
+  - File Node:
+      - Node index             : 5
+      - File Name Hash         : 10293
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x003F
+      - File Data Offset       : 0x0000E0C0
+      - File Data Size         : 0x0001C300
+      - Name                   : defaultse.bms
+      - Location               : ./files/bms/defaultse.bms
+  - File Node:
+      - Node index             : 6
+      - File Name Hash         : 60210
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x004D
+      - File Data Offset       : 0x0002A3C0
+      - File Data Size         : 0x000009A0
+      - Name                   : dekpinch.bms
+      - Location               : ./files/bms/dekpinch.bms
+  - File Node:
+      - Node index             : 7
+      - File Name Hash         : 7067
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x005A
+      - File Data Offset       : 0x0002AD60
+      - File Data Size         : 0x00000860
+      - Name                   : die_link.bms
+      - Location               : ./files/bms/die_link.bms
+  - File Node:
+      - Node index             : 8
+      - File Name Hash         : 13466
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0067
+      - File Data Offset       : 0x0002B5C0
+      - File Data Size         : 0x00002040
+      - Name                   : drug.bms
+      - Location               : ./files/bms/drug.bms
+  - File Node:
+      - Node index             : 9
+      - File Name Hash         : 54204
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0070
+      - File Data Offset       : 0x0002D600
+      - File Data Size         : 0x000042E0
+      - Name                   : d_amosu.bms
+      - Location               : ./files/bms/d_amosu.bms
+  - File Node:
+      - Node index             : 10
+      - File Name Hash         : 55581
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x007C
+      - File Data Offset       : 0x000318E0
+      - File Data Size         : 0x00008760
+      - Name                   : d_earth.bms
+      - Location               : ./files/bms/d_earth.bms
+  - File Node:
+      - Node index             : 11
+      - File Name Hash         : 12138
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0088
+      - File Data Offset       : 0x0003A040
+      - File Data Size         : 0x000029A0
+      - Name                   : d_forest.bms
+      - Location               : ./files/bms/d_forest.bms
+  - File Node:
+      - Node index             : 12
+      - File Name Hash         : 62939
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0095
+      - File Data Offset       : 0x0003C9E0
+      - File Data Size         : 0x00007EA0
+      - Name                   : d_ganon1.bms
+      - Location               : ./files/bms/d_ganon1.bms
+  - File Node:
+      - Node index             : 13
+      - File Name Hash         : 63020
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x00A2
+      - File Data Offset       : 0x00044880
+      - File Data Size         : 0x00004260
+      - Name                   : d_ganon2.bms
+      - Location               : ./files/bms/d_ganon2.bms
+  - File Node:
+      - Node index             : 14
+      - File Name Hash         : 63748
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x00AF
+      - File Data Offset       : 0x00048AE0
+      - File Data Size         : 0x000029E0
+      - Name                   : d_ryumt.bms
+      - Location               : ./files/bms/d_ryumt.bms
+  - File Node:
+      - Node index             : 15
+      - File Name Hash         : 16669
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x00BB
+      - File Data Offset       : 0x0004B4C0
+      - File Data Size         : 0x00005180
+      - Name                   : d_wind.bms
+      - Location               : ./files/bms/d_wind.bms
+  - File Node:
+      - Node index             : 16
+      - File Name Hash         : 45165
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x00C6
+      - File Data Offset       : 0x00050640
+      - File Data Size         : 0x00001860
+      - Name                   : elf.bms
+      - Location               : ./files/bms/elf.bms
+  - File Node:
+      - Node index             : 17
+      - File Name Hash         : 31404
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x00CE
+      - File Data Offset       : 0x00051EA0
+      - File Data Size         : 0x000073A0
+      - Name                   : enemy2.bms
+      - Location               : ./files/bms/enemy2.bms
+  - File Node:
+      - Node index             : 18
+      - File Name Hash         : 54190
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x00D9
+      - File Data Offset       : 0x00059240
+      - File Data Size         : 0x000004C0
+      - Name                   : enemy_comes.bms
+      - Location               : ./files/bms/enemy_comes.bms
+  - File Node:
+      - Node index             : 19
+      - File Name Hash         : 31895
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x00E9
+      - File Data Offset       : 0x00059700
+      - File Data Size         : 0x00002AE0
+      - Name                   : e_dioct2.bms
+      - Location               : ./files/bms/e_dioct2.bms
+  - File Node:
+      - Node index             : 20
+      - File Name Hash         : 35702
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x00F6
+      - File Data Offset       : 0x0005C1E0
+      - File Data Size         : 0x00002EC0
+      - Name                   : e_diocta.bms
+      - Location               : ./files/bms/e_diocta.bms
+  - File Node:
+      - Node index             : 21
+      - File Name Hash         : 58571
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0103
+      - File Data Offset       : 0x0005F0A0
+      - File Data Size         : 0x0000A0A0
+      - Name                   : e_ganon.bms
+      - Location               : ./files/bms/e_ganon.bms
+  - File Node:
+      - Node index             : 22
+      - File Name Hash         : 28638
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x010F
+      - File Data Offset       : 0x00069140
+      - File Data Size         : 0x00000720
+      - Name                   : find_ttr.bms
+      - Location               : ./files/bms/find_ttr.bms
+  - File Node:
+      - Node index             : 23
+      - File Name Hash         : 46056
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x011C
+      - File Data Offset       : 0x00069860
+      - File Data Size         : 0x00000D00
+      - Name                   : get.bms
+      - Location               : ./files/bms/get.bms
+  - File Node:
+      - Node index             : 24
+      - File Name Hash         : 32269
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0124
+      - File Data Offset       : 0x0006A560
+      - File Data Size         : 0x000009E0
+      - Name                   : get_h.bms
+      - Location               : ./files/bms/get_h.bms
+  - File Node:
+      - Node index             : 25
+      - File Name Hash         : 14618
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x012E
+      - File Data Offset       : 0x0006AF40
+      - File Data Size         : 0x00000820
+      - Name                   : get_perl.bms
+      - Location               : ./files/bms/get_perl.bms
+  - File Node:
+      - Node index             : 26
+      - File Name Hash         : 33160
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x013B
+      - File Data Offset       : 0x0006B760
+      - File Data Size         : 0x000007A0
+      - Name                   : get_s.bms
+      - Location               : ./files/bms/get_s.bms
+  - File Node:
+      - Node index             : 27
+      - File Name Hash         : 27092
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0145
+      - File Data Offset       : 0x0006BF00
+      - File Data Size         : 0x00000540
+      - Name                   : get_song.bms
+      - Location               : ./files/bms/get_song.bms
+  - File Node:
+      - Node index             : 28
+      - File Name Hash         : 18032
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0152
+      - File Data Offset       : 0x0006C440
+      - File Data Size         : 0x000024E0
+      - Name                   : goma_a.bms
+      - Location               : ./files/bms/goma_a.bms
+  - File Node:
+      - Node index             : 29
+      - File Name Hash         : 18113
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x015D
+      - File Data Offset       : 0x0006E920
+      - File Data Size         : 0x00002EC0
+      - Name                   : goma_b.bms
+      - Location               : ./files/bms/goma_b.bms
+  - File Node:
+      - Node index             : 30
+      - File Name Hash         : 510
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0168
+      - File Data Offset       : 0x000717E0
+      - File Data Size         : 0x00001320
+      - Name                   : house.bms
+      - Location               : ./files/bms/house.bms
+  - File Node:
+      - Node index             : 31
+      - File Name Hash         : 15490
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0172
+      - File Data Offset       : 0x00072B00
+      - File Data Size         : 0x00000E00
+      - Name                   : house_g.bms
+      - Location               : ./files/bms/house_g.bms
+  - File Node:
+      - Node index             : 32
+      - File Name Hash         : 16543
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x017E
+      - File Data Offset       : 0x00073900
+      - File Data Size         : 0x00005860
+      - Name                   : house_t.bms
+      - Location               : ./files/bms/house_t.bms
+  - File Node:
+      - Node index             : 33
+      - File Name Hash         : 48547
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x018A
+      - File Data Offset       : 0x00079160
+      - File Data Size         : 0x00000980
+      - Name                   : house_t2.bms
+      - Location               : ./files/bms/house_t2.bms
+  - File Node:
+      - Node index             : 34
+      - File Name Hash         : 21592
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0197
+      - File Data Offset       : 0x00079AE0
+      - File Data Size         : 0x00000140
+      - Name                   : hyrul_of.bms
+      - Location               : ./files/bms/hyrul_of.bms
+  - File Node:
+      - Node index             : 35
+      - File Name Hash         : 22240
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x01A4
+      - File Data Offset       : 0x00079C20
+      - File Data Size         : 0x00001DA0
+      - Name                   : hyrul_on.bms
+      - Location               : ./files/bms/hyrul_on.bms
+  - File Node:
+      - Node index             : 36
+      - File Name Hash         : 26058
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x01B1
+      - File Data Offset       : 0x0007B9C0
+      - File Data Size         : 0x00003320
+      - Name                   : i_link.bms
+      - Location               : ./files/bms/i_link.bms
+  - File Node:
+      - Node index             : 37
+      - File Name Hash         : 11556
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x01BC
+      - File Data Offset       : 0x0007ECE0
+      - File Data Size         : 0x00003320
+      - Name                   : i_link2.bms
+      - Location               : ./files/bms/i_link2.bms
+  - File Node:
+      - Node index             : 38
+      - File Name Hash         : 11637
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x01C8
+      - File Data Offset       : 0x00082000
+      - File Data Size         : 0x000026C0
+      - Name                   : i_link3.bms
+      - Location               : ./files/bms/i_link3.bms
+  - File Node:
+      - Node index             : 39
+      - File Name Hash         : 15768
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x01D4
+      - File Data Offset       : 0x000846C0
+      - File Data Size         : 0x00000420
+      - Name                   : i_linkf.bms
+      - Location               : ./files/bms/i_linkf.bms
+  - File Node:
+      - Node index             : 40
+      - File Name Hash         : 51811
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x01E0
+      - File Data Offset       : 0x00084AE0
+      - File Data Size         : 0x00004C60
+      - Name                   : i_linkin.bms
+      - Location               : ./files/bms/i_linkin.bms
+  - File Node:
+      - Node index             : 41
+      - File Name Hash         : 22251
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x01ED
+      - File Data Offset       : 0x00089740
+      - File Data Size         : 0x00005620
+      - Name                   : i_maju.bms
+      - Location               : ./files/bms/i_maju.bms
+  - File Node:
+      - Node index             : 42
+      - File Name Hash         : 14794
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x01F8
+      - File Data Offset       : 0x0008ED60
+      - File Data Size         : 0x000008A0
+      - Name                   : i_maju_j.bms
+      - Location               : ./files/bms/i_maju_j.bms
+  - File Node:
+      - Node index             : 43
+      - File Name Hash         : 33429
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0205
+      - File Data Offset       : 0x0008F600
+      - File Data Size         : 0x00004F80
+      - Name                   : i_mori.bms
+      - Location               : ./files/bms/i_mori.bms
+  - File Node:
+      - Node index             : 44
+      - File Name Hash         : 51156
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0210
+      - File Data Offset       : 0x00094580
+      - File Data Size         : 0x00002780
+      - Name                   : i_moridk.bms
+      - Location               : ./files/bms/i_moridk.bms
+  - File Node:
+      - Node index             : 45
+      - File Name Hash         : 38182
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x021D
+      - File Data Offset       : 0x00096D00
+      - File Data Size         : 0x000078C0
+      - Name                   : i_ryu.bms
+      - Location               : ./files/bms/i_ryu.bms
+  - File Node:
+      - Node index             : 46
+      - File Name Hash         : 57159
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0227
+      - File Data Offset       : 0x0009E5C0
+      - File Data Size         : 0x00002200
+      - Name                   : i_taura.bms
+      - Location               : ./files/bms/i_taura.bms
+  - File Node:
+      - Node index             : 47
+      - File Name Hash         : 34537
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0233
+      - File Data Offset       : 0x000A07C0
+      - File Data Size         : 0x00000420
+      - Name                   : jaboo.bms
+      - Location               : ./files/bms/jaboo.bms
+  - File Node:
+      - Node index             : 48
+      - File Name Hash         : 25268
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x023D
+      - File Data Offset       : 0x000A0BE0
+      - File Data Size         : 0x00003FA0
+      - Name                   : kaminoto.bms
+      - Location               : ./files/bms/kaminoto.bms
+  - File Node:
+      - Node index             : 49
+      - File Name Hash         : 38554
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x024A
+      - File Data Offset       : 0x000A4B80
+      - File Data Size         : 0x00002C60
+      - Name                   : kugutu1.bms
+      - Location               : ./files/bms/kugutu1.bms
+  - File Node:
+      - Node index             : 50
+      - File Name Hash         : 38635
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0256
+      - File Data Offset       : 0x000A77E0
+      - File Data Size         : 0x000029A0
+      - Name                   : kugutu2.bms
+      - Location               : ./files/bms/kugutu2.bms
+  - File Node:
+      - Node index             : 51
+      - File Name Hash         : 38716
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0262
+      - File Data Offset       : 0x000AA180
+      - File Data Size         : 0x00002F60
+      - Name                   : kugutu3.bms
+      - Location               : ./files/bms/kugutu3.bms
+  - File Node:
+      - Node index             : 52
+      - File Name Hash         : 31777
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x026E
+      - File Data Offset       : 0x000AD0E0
+      - File Data Size         : 0x000009A0
+      - Name                   : mastersword.bms
+      - Location               : ./files/bms/mastersword.bms
+  - File Node:
+      - Node index             : 53
+      - File Name Hash         : 1644
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x027E
+      - File Data Offset       : 0x000ADA80
+      - File Data Size         : 0x00008280
+      - Name                   : mboss.bms
+      - Location               : ./files/bms/mboss.bms
+  - File Node:
+      - Node index             : 54
+      - File Name Hash         : 26668
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0288
+      - File Data Offset       : 0x000B5D00
+      - File Data Size         : 0x00007840
+      - Name                   : mboss_s.bms
+      - Location               : ./files/bms/mboss_s.bms
+  - File Node:
+      - Node index             : 55
+      - File Name Hash         : 58049
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0294
+      - File Data Offset       : 0x000BD540
+      - File Data Size         : 0x00001F80
+      - Name                   : next_dry.bms
+      - Location               : ./files/bms/next_dry.bms
+  - File Node:
+      - Node index             : 56
+      - File Name Hash         : 2800
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x02A1
+      - File Data Offset       : 0x000BF4C0
+      - File Data Size         : 0x00003EA0
+      - Name                   : next_wet.bms
+      - Location               : ./files/bms/next_wet.bms
+  - File Node:
+      - Node index             : 57
+      - File Name Hash         : 65399
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x02AE
+      - File Data Offset       : 0x000C3360
+      - File Data Size         : 0x00000180
+      - Name                   : okmacole.bms
+      - Location               : ./files/bms/okmacole.bms
+  - File Node:
+      - Node index             : 58
+      - File Name Hash         : 30076
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x02BB
+      - File Data Offset       : 0x000C34E0
+      - File Data Size         : 0x00000180
+      - Name                   : okmedori.bms
+      - Location               : ./files/bms/okmedori.bms
+  - File Node:
+      - Node index             : 59
+      - File Name Hash         : 10372
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x02C8
+      - File Data Offset       : 0x000C3660
+      - File Data Size         : 0x00000E40
+      - Name                   : open_box.bms
+      - Location               : ./files/bms/open_box.bms
+  - File Node:
+      - Node index             : 60
+      - File Name Hash         : 41103
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x02D5
+      - File Data Offset       : 0x000C44A0
+      - File Data Size         : 0x00004600
+      - Name                   : pirate.bms
+      - Location               : ./files/bms/pirate.bms
+  - File Node:
+      - Node index             : 61
+      - File Name Hash         : 49097
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x02E0
+      - File Data Offset       : 0x000C8AA0
+      - File Data Size         : 0x00004600
+      - Name                   : pirate_5.bms
+      - Location               : ./files/bms/pirate_5.bms
+  - File Node:
+      - Node index             : 62
+      - File Name Hash         : 52823
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x02ED
+      - File Data Offset       : 0x000CD0A0
+      - File Data Size         : 0x00003760
+      - Name                   : pirate_c.bms
+      - Location               : ./files/bms/pirate_c.bms
+  - File Node:
+      - Node index             : 63
+      - File Name Hash         : 36957
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x02FA
+      - File Data Offset       : 0x000D0800
+      - File Data Size         : 0x000025C0
+      - Name                   : p_bigpow.bms
+      - Location               : ./files/bms/p_bigpow.bms
+  - File Node:
+      - Node index             : 64
+      - File Name Hash         : 12922
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0307
+      - File Data Offset       : 0x000D2DC0
+      - File Data Size         : 0x00001DA0
+      - Name                   : p_boco.bms
+      - Location               : ./files/bms/p_boco.bms
+  - File Node:
+      - Node index             : 65
+      - File Name Hash         : 26015
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0312
+      - File Data Offset       : 0x000D4B60
+      - File Data Size         : 0x00005EA0
+      - Name                   : p_ganon1.bms
+      - Location               : ./files/bms/p_ganon1.bms
+  - File Node:
+      - Node index             : 66
+      - File Name Hash         : 26096
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x031F
+      - File Data Offset       : 0x000DAA00
+      - File Data Size         : 0x00009E80
+      - Name                   : p_ganon2.bms
+      - Location               : ./files/bms/p_ganon2.bms
+  - File Node:
+      - Node index             : 67
+      - File Name Hash         : 40183
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x032C
+      - File Data Offset       : 0x000E4880
+      - File Data Size         : 0x00001DA0
+      - Name                   : p_goma_a.bms
+      - Location               : ./files/bms/p_goma_a.bms
+  - File Node:
+      - Node index             : 68
+      - File Name Hash         : 40264
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0339
+      - File Data Offset       : 0x000E6620
+      - File Data Size         : 0x00002C80
+      - Name                   : p_goma_b.bms
+      - Location               : ./files/bms/p_goma_b.bms
+  - File Node:
+      - Node index             : 69
+      - File Name Hash         : 39571
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0346
+      - File Data Offset       : 0x000E92A0
+      - File Data Size         : 0x000028C0
+      - Name                   : p_rane.bms
+      - Location               : ./files/bms/p_rane.bms
+  - File Node:
+      - Node index             : 70
+      - File Name Hash         : 29828
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0351
+      - File Data Offset       : 0x000EBB60
+      - File Data Size         : 0x00002580
+      - Name                   : rane.bms
+      - Location               : ./files/bms/rane.bms
+  - File Node:
+      - Node index             : 71
+      - File Name Hash         : 53265
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x035A
+      - File Data Offset       : 0x000EE0E0
+      - File Data Size         : 0x0000A720
+      - Name                   : sea.bms
+      - Location               : ./files/bms/sea.bms
+  - File Node:
+      - Node index             : 72
+      - File Name Hash         : 34686
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0362
+      - File Data Offset       : 0x000F8800
+      - File Data Size         : 0x00004500
+      - Name                   : sea_dawn.bms
+      - Location               : ./files/bms/sea_dawn.bms
+  - File Node:
+      - Node index             : 73
+      - File Name Hash         : 64818
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x036F
+      - File Data Offset       : 0x000FCD00
+      - File Data Size         : 0x00004C00
+      - Name                   : sea_enemy.bms
+      - Location               : ./files/bms/sea_enemy.bms
+  - File Node:
+      - Node index             : 74
+      - File Name Hash         : 35496
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x037D
+      - File Data Offset       : 0x00101900
+      - File Data Size         : 0x00000920
+      - Name                   : sea_fail.bms
+      - Location               : ./files/bms/sea_fail.bms
+  - File Node:
+      - Node index             : 75
+      - File Name Hash         : 38088
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x038A
+      - File Data Offset       : 0x00102220
+      - File Data Size         : 0x000043E0
+      - Name                   : sea_game.bms
+      - Location               : ./files/bms/sea_game.bms
+  - File Node:
+      - Node index             : 76
+      - File Name Hash         : 45945
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0397
+      - File Data Offset       : 0x00106600
+      - File Data Size         : 0x000021A0
+      - Name                   : sea_goal.bms
+      - Location               : ./files/bms/sea_goal.bms
+  - File Node:
+      - Node index             : 77
+      - File Name Hash         : 14510
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x03A4
+      - File Data Offset       : 0x001087A0
+      - File Data Size         : 0x00006040
+      - Name                   : sea_strm.bms
+      - Location               : ./files/bms/sea_strm.bms
+  - File Node:
+      - Node index             : 78
+      - File Name Hash         : 60786
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x03B1
+      - File Data Offset       : 0x0010E7E0
+      - File Data Size         : 0x000054C0
+      - Name                   : select.bms
+      - Location               : ./files/bms/select.bms
+  - File Node:
+      - Node index             : 79
+      - File Name Hash         : 13463
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x03BC
+      - File Data Offset       : 0x00113CA0
+      - File Data Size         : 0x00003DC0
+      - Name                   : store.bms
+      - Location               : ./files/bms/store.bms
+  - File Node:
+      - Node index             : 80
+      - File Name Hash         : 15979
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x03C6
+      - File Data Offset       : 0x00117A60
+      - File Data Size         : 0x000004A0
+      - Name                   : subdun.bms
+      - Location               : ./files/bms/subdun.bms
+  - File Node:
+      - Node index             : 81
+      - File Name Hash         : 54821
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x03D1
+      - File Data Offset       : 0x00117F00
+      - File Data Size         : 0x00000DA0
+      - Name                   : takt_dn.bms
+      - Location               : ./files/bms/takt_dn.bms
+  - File Node:
+      - Node index             : 82
+      - File Name Hash         : 40895
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x03DD
+      - File Data Offset       : 0x00118CA0
+      - File Data Size         : 0x00000900
+      - Name                   : takt_mcl.bms
+      - Location               : ./files/bms/takt_mcl.bms
+  - File Node:
+      - Node index             : 83
+      - File Name Hash         : 41624
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x03EA
+      - File Data Offset       : 0x001195A0
+      - File Data Size         : 0x00000900
+      - Name                   : takt_mdr.bms
+      - Location               : ./files/bms/takt_mdr.bms
+  - File Node:
+      - Node index             : 84
+      - File Name Hash         : 50210
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x03F7
+      - File Data Offset       : 0x00119EA0
+      - File Data Size         : 0x00001240
+      - Name                   : takt_wnd.bms
+      - Location               : ./files/bms/takt_wnd.bms
+  - File Node:
+      - Node index             : 85
+      - File Name Hash         : 52154
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0404
+      - File Data Offset       : 0x0011B0E0
+      - File Data Size         : 0x00003040
+      - Name                   : takt_wrp.bms
+      - Location               : ./files/bms/takt_wrp.bms
+  - File Node:
+      - Node index             : 86
+      - File Name Hash         : 62058
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0411
+      - File Data Offset       : 0x0011E120
+      - File Data Size         : 0x00001BA0
+      - Name                   : taraba_intro.bms
+      - Location               : ./files/bms/taraba_intro.bms
+  - File Node:
+      - Node index             : 87
+      - File Name Hash         : 15574
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0422
+      - File Data Offset       : 0x0011FCC0
+      - File Data Size         : 0x000007C0
+      - Name                   : tetra_meet.bms
+      - Location               : ./files/bms/tetra_meet.bms
+  - File Node:
+      - Node index             : 88
+      - File Name Hash         : 19589
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0431
+      - File Data Offset       : 0x00120480
+      - File Data Size         : 0x00001320
+      - Name                   : tetra_meet_b.bms
+      - Location               : ./files/bms/tetra_meet_b.bms
+  - File Node:
+      - Node index             : 89
+      - File Name Hash         : 12815
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0442
+      - File Data Offset       : 0x001217A0
+      - File Data Size         : 0x00003500
+      - Name                   : tower.bms
+      - Location               : ./files/bms/tower.bms
+  - File Node:
+      - Node index             : 90
+      - File Name Hash         : 40068
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x044C
+      - File Data Offset       : 0x00124CA0
+      - File Data Size         : 0x00000480
+      - Name                   : get_box.bms
+      - Location               : ./files/bms/get_box.bms
+  - File Node:
+      - Node index             : 91
+      - File Name Hash         : 40451
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0458
+      - File Data Offset       : 0x00125120
+      - File Data Size         : 0x00001160
+      - Name                   : tak8_mcl.bms
+      - Location               : ./files/bms/tak8_mcl.bms
+  - File Node:
+      - Node index             : 92
+      - File Name Hash         : 41180
+      - Node Attributes        : FILE, PRELOAD_TO_MRAM, 
+      - String Table Offset    : 0x0465
+      - File Data Offset       : 0x00126280
+      - File Data Size         : 0x00000C60
+      - Name                   : tak8_mdr.bms
+      - Location               : ./files/bms/tak8_mdr.bms
+  - File Node:
+      - Node index             : Subdirectory
+      - File Name Hash         : 46
+      - Node Attributes        : DIRECTORY, 
+      - String Table Offset    : 0x0000
+      - Directory Node Index   : 0x00000000
+      - Directory Node Size    : 0x00000010
+      - Name                   : .
+      - Location               : ./files/bms/.
+  - File Node:
+      - Node index             : Subdirectory
+      - File Name Hash         : 184
+      - Node Attributes        : DIRECTORY, 
+      - String Table Offset    : 0x0002
+      - Directory Node Index   : 0xFFFFFFFF
+      - Directory Node Size    : 0x00000010
+      - Name                   : ..
+      - Location               : ./files/bms/..
+  - File Node:
+      - Node index             : 0
+      - File Name Hash         : 0
+      - Node Attributes        : 
+      - String Table Offset    : 0x0000
+      - Name                   : .
+      - Location               : ./files/bms/.
+  - String Table:
+      - .
+      - ..
+      - bms
+      - baachan.bms
+      - bigpow.bms
+      - bird.bms
+      - boco.bms
+      - death_vl.bms
+      - defaultse.bms
+      - dekpinch.bms
+      - die_link.bms
+      - drug.bms
+      - d_amosu.bms
+      - d_earth.bms
+      - d_forest.bms
+      - d_ganon1.bms
+      - d_ganon2.bms
+      - d_ryumt.bms
+      - d_wind.bms
+      - elf.bms
+      - enemy2.bms
+      - enemy_comes.bms
+      - e_dioct2.bms
+      - e_diocta.bms
+      - e_ganon.bms
+      - find_ttr.bms
+      - get.bms
+      - get_h.bms
+      - get_perl.bms
+      - get_s.bms
+      - get_song.bms
+      - goma_a.bms
+      - goma_b.bms
+      - house.bms
+      - house_g.bms
+      - house_t.bms
+      - house_t2.bms
+      - hyrul_of.bms
+      - hyrul_on.bms
+      - i_link.bms
+      - i_link2.bms
+      - i_link3.bms
+      - i_linkf.bms
+      - i_linkin.bms
+      - i_maju.bms
+      - i_maju_j.bms
+      - i_mori.bms
+      - i_moridk.bms
+      - i_ryu.bms
+      - i_taura.bms
+      - jaboo.bms
+      - kaminoto.bms
+      - kugutu1.bms
+      - kugutu2.bms
+      - kugutu3.bms
+      - mastersword.bms
+      - mboss.bms
+      - mboss_s.bms
+      - next_dry.bms
+      - next_wet.bms
+      - okmacole.bms
+      - okmedori.bms
+      - open_box.bms
+      - pirate.bms
+      - pirate_5.bms
+      - pirate_c.bms
+      - p_bigpow.bms
+      - p_boco.bms
+      - p_ganon1.bms
+      - p_ganon2.bms
+      - p_goma_a.bms
+      - p_goma_b.bms
+      - p_rane.bms
+      - rane.bms
+      - sea.bms
+      - sea_dawn.bms
+      - sea_enemy.bms
+      - sea_fail.bms
+      - sea_game.bms
+      - sea_goal.bms
+      - sea_strm.bms
+      - select.bms
+      - store.bms
+      - subdun.bms
+      - takt_dn.bms
+      - takt_mcl.bms
+      - takt_mdr.bms
+      - takt_wnd.bms
+      - takt_wrp.bms
+      - taraba_intro.bms
+      - tetra_meet.bms
+      - tetra_meet_b.bms
+      - tower.bms
+      - get_box.bms
+      - tak8_mcl.bms
+      - tak8_mdr.bms
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 

@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"*.dspreset": "xml",
+		"filesystem": "c",
+		"vector": "c",
+		"types": "cpp",
+		"io.h": "c",
+		"*.hexpat": "rust"
+	}
+}
