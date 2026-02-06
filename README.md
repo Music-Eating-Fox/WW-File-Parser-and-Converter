@@ -8,9 +8,11 @@ This program requires a file called `JaiSeqs.arc` in the folder `data`. You will
 ```
 root
   + bin
-    + bms
-    + midi
-    + txt
+    + files
+      + bms
+      + midi
+      + txt
+    + <binary>
   + data
     + JaiSeqs.arc
   + src
