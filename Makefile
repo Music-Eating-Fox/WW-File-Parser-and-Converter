@@ -4,7 +4,7 @@ ifeq ($(OS), Windows_NT)
 
 COMPILER            := gcc
 SOURCE_FILES        := ./src/*.c
-BUILD_NAME          := get_stuff
+BUILD_NAME          := get_stuff.exe
 BUILD_LOCATION      := ./bin
 INCLUDE_LOCATIONS   := 
 LIBRARY_LOCATIONS   := 
