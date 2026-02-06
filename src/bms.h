@@ -90,26 +90,29 @@ void BMS_parse_cmd_param_e(u8 current_byte, FILE *bms_pointer, FILE *txt_output_
 	fprintf(txt_output_pointer, "cmdParamE: ");
 
 	switch (target) {
-		case 0x00:
+		case 0x00: ;	// Dumb, hacky fix for a non C23 thing.
 			f32 volume = (parameter > 0x7F) ? 0x00 : (float)parameter / (float)0x7F;
 			fprintf(txt_output_pointer, "[Volume %f]\n", volume);
 			break;
 
-		case 0x01:
+		case 0x01: ;
 			const char *pitch = (parameter == 0x01) ? "Increase" : (parameter == 0xFF) ? "Decrease" : "Unknown";
 			fprintf(txt_output_pointer, "[Pitch %s]\n", pitch);
 			break;
 		
-		case 0x02:
+		case 0x02: ;
 			f32 reverb = (parameter > 0x7F) ? 0x00 : (float)parameter / (float)0x7F;
 			fprintf(txt_output_pointer, "[Reverb %f]\n", reverb);
+			break;
 		
-		case 0x03:
+		case 0x03: ;
 			const char *pan = (parameter == 0x07F) ? "Right" : (parameter == 0x00) ? "Center" : (parameter == 0x80) ? "Left" : "Unknown";
 			fprintf(txt_output_pointer, "[Pan %s]\n", pan);
+			break;
 		
-		default:
+		default: ;
 			fprintf(txt_output_pointer, "[Unknown target=0x%02X param=0x%02X]\n", target, parameter);
+			break;
 	}
 }
 
@@ -123,26 +126,29 @@ void BMS_parse_cmd_param_i(u8 current_byte, FILE *bms_pointer, FILE *txt_output_
 	fprintf(txt_output_pointer, "cmdParamI: ");
 
 	switch (target) {
-		case 0x00:
+		case 0x00: ;
 			f32 volume = (parameter > 0x7FFF) ? 0x0000 : (float)parameter / (float)0x7FFF;
 			fprintf(txt_output_pointer, "[Volume %f]\n", volume);
 			break;
 
-		case 0x01:
+		case 0x01: ;
 			const char *pitch = (parameter == 0x0100) ? "Increase" : (parameter == 0xFF00) ? "Decrease" : "Unknown";
 			fprintf(txt_output_pointer, "[Pitch %s]\n", pitch);
 			break;
 		
-		case 0x02:
+		case 0x02: ;
 			f32 reverb = (parameter > 0x7FFF) ? 0x0000 : (float)parameter / (float)0x7FFF;
 			fprintf(txt_output_pointer, "[Reverb %f]\n", reverb);
+			break;
 		
-		case 0x03:
+		case 0x03: ;
 			const char *pan = (parameter == 0x07FFF) ? "Right" : (parameter == 0x0000) ? "Center" : (parameter == 0x8000) ? "Left" : "Unknown";
 			fprintf(txt_output_pointer, "[Pan %s]\n", pan);
+			break;
 		
-		default:
+		default: ;
 			fprintf(txt_output_pointer, "[Unknown target=0x%02X param=0x%04X]\n", target, parameter);
+			break;
 	}
 }
 
@@ -158,26 +164,29 @@ void BMS_parse_cmd_param_ei(u8 current_byte, FILE *bms_pointer, FILE *txt_output
 	fprintf(txt_output_pointer, "cmdParamI: ");
 
 	switch (target) {
-		case 0x00:
+		case 0x00: ;
 			f32 volume = (parameter > 0x7F) ? 0x00 : (float)parameter / (float)0x7F;
 			fprintf(txt_output_pointer, "[Volume %f 0x%04Xticks]\n", volume, fade_time);
 			break;
 
-		case 0x01:
+		case 0x01: ;
 			const char *pitch = (parameter == 0x01) ? "Increase" : (parameter == 0xFF) ? "Decrease" : "Unknown";
 			fprintf(txt_output_pointer, "[Pitch %s 0x%04Xticks]\n", pitch, fade_time);
 			break;
 		
-		case 0x02:
+		case 0x02: ;
 			f32 reverb = (parameter > 0x7F) ? 0x00 : (float)parameter / (float)0x7F;
 			fprintf(txt_output_pointer, "[Reverb %f 0x%04Xticks]\n", reverb, fade_time);
+			break;
 		
-		case 0x03:
+		case 0x03: ;
 			const char *pan = (parameter == 0x07F) ? "Right" : (parameter == 0x00) ? "Center" : (parameter == 0x80) ? "Left" : "Unknown";
 			fprintf(txt_output_pointer, "[Pan %s 0x%04Xticks]\n", pan, fade_time);
+			break;
 		
-		default:
+		default: ;
 			fprintf(txt_output_pointer, "[Unknown target=0x%02X param=0x%02X fade_time=0x%04X]\n", target, parameter, fade_time);
+			break;
 	}
 }
 
@@ -193,26 +202,29 @@ void BMS_parse_cmd_param_ii(u8 current_byte, FILE *bms_pointer, FILE *txt_output
 	fprintf(txt_output_pointer, "cmdParamI: ");
 
 	switch (target) {
-		case 0x00:
+		case 0x00: ;
 			f32 volume = (parameter > 0x7FFF) ? 0x0000 : (float)parameter / (float)0x7FFF;
 			fprintf(txt_output_pointer, "[Volume %f %dticks]\n", volume, fade_time);
 			break;
 
-		case 0x01:
+		case 0x01: ;
 			const char *pitch = (parameter == 0x0100) ? "Increase" : (parameter == 0xFF00) ? "Decrease" : "Unknown";
 			fprintf(txt_output_pointer, "[Pitch %s %dticks]\n", pitch, fade_time);
 			break;
 		
-		case 0x02:
+		case 0x02: ;
 			f32 reverb = (parameter > 0x7FFF) ? 0x0000 : (float)parameter / (float)0x7FFF;
 			fprintf(txt_output_pointer, "[Reverb %f %dticks]\n", reverb, fade_time);
+			break;
 		
-		case 0x03:
+		case 0x03: ;
 			const char *pan = (parameter == 0x07FFF) ? "Right" : (parameter == 0x0000) ? "Center" : (parameter == 0x8000) ? "Left" : "Unknown";
 			fprintf(txt_output_pointer, "[Pan %s %dticks]\n", pan, fade_time);
+			break;
 		
-		default:
+		default: ;
 			fprintf(txt_output_pointer, "[Unknown target=0x%02X param=0x%04X fade_time=%dticks]\n", target, parameter, fade_time);
+			break;
 	}
 }
 
