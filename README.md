@@ -1,6 +1,10 @@
 # Wind Waker File Parse and Converter
 It does as the title suggests :)
 
+### Dependencies
+- A C compiler (the Makefile assumes GCC)
+- Make
+
 ### Building and Running
 NOTE THAT THIS IS CURRENTLY ONLY KNOWN TO RUN ON MACOS. I would think it can run on Linux and Windows, but the commands for Windows may be different if you don't use WSL (Windows Subsystem for Linux).
 
