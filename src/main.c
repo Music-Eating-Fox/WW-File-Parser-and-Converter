@@ -95,9 +95,8 @@ int main(int argc, const char **argv) {
 	// Stuff to be used in loop
 	char            file_name_string[256];
 	RARC_File_Node  file_node;
-	void           *buffer0   = malloc(2048);
-	void           *buffer1   = malloc(2048);
-	int             size      = 0;
+	void           *buffer = malloc(2048);
+	int             size   = 0;
 
 	for (int i = 0; i < rarc.data_header.num_directory_nodes + rarc.data_header.num_file_nodes; i++) {
 		// Ignore the magic numbers; I'm trying to figure out how to get these values in code, but those are
@@ -156,22 +155,27 @@ int main(int argc, const char **argv) {
 		if (file_node.file_data_size > 2048) {
 			size_t read_size = 0;
 
-			while (file_node.file_data_size - read_size > 2048) {
+			// while (file_node.file_data_size - read_size > 2048) {
 
-				read_size += fread(buffer1, sizeof(u8), 2048, file_pointer_binary);
+			// 	read_size += fread(buffer1, sizeof(u8), 2048, file_pointer_binary);
 				
-				fwrite(buffer1, sizeof(u8), 2048, target_file_pointer);
-			}
+			// 	fwrite(buffer1, sizeof(u8), 2048, target_file_pointer);
+			// }
 
-			fread(buffer1, sizeof(u8), file_node.file_data_size - read_size, file_pointer_binary);
-			fread(buffer1, sizeof(u8), file_node.file_data_size - read_size, target_file_pointer);
+			// fread(buffer1, sizeof(u8), file_node.file_data_size - read_size, file_pointer_binary);
+			// fread(buffer1, sizeof(u8), file_node.file_data_size - read_size, target_file_pointer);
+
+			buffer = realloc(buffer, (size_t)file_node.file_data_size * sizeof(u8));
+			fread(buffer, sizeof(u8), file_node.file_data_size, file_pointer_binary);
+			fread(buffer, sizeof(u8), file_node.file_data_size, target_file_pointer);
+
+			fwrite(buffer, sizeof(u8), file_node.file_data_size, target_file_pointer);
 		}
 
 		fclose(target_file_pointer);
 	}
 
-	free(buffer0);
-	free(buffer1);
+	free(buffer);
 
 	char string_table[rarc.data_header.string_table_size];
 

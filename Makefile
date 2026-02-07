@@ -34,6 +34,14 @@ endif
 
 all: build
 
+scaffold:
+	mkdir -p bin
+	mkdir -p bin/files
+	mkdir -p bin/files/bms
+	mkdir -p bin/files/midi
+	mkdir -p bin/files/txt
+	mkdir -p data
+
 build:
 	@$(COMPILER) $(SOURCE_FILES) -o $(BUILD_LOCATION)/$(BUILD_NAME) $(INCLUDE_LOCATIONS) $(LIBRARY_LOCATIONS) $(LIBRARIES) $(FRAMEWORK_LOCATIONS) $(FRAMEWORKS) $(COMPILER_FLAGS)
 
