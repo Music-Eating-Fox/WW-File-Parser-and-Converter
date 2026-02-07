@@ -8,7 +8,7 @@ It does as the title suggests :)
 ### Building and Running
 NOTE THAT THIS IS CURRENTLY ONLY KNOWN TO RUN ON MACOS. I would think it can run on Linux and Windows, but the commands for Windows may be different if you don't use WSL (Windows Subsystem for Linux).
 
-This program requires a file called `JaiSeqs.arc` in the folder `data`. You will need to supply this file as I'm fairly certain I can't legally just publish it on the internet. It's really not hard to get (there's this wonderful thing called Google), but you will have to supply it yourself. Once you have it, you will need to place it in an adjecent folder called `data` (should be in the same directory as `src` and `bin`). Also, in `bin`, you will need a folder called `files`, and in `files`, you will need to create three folders: `bms`, `midi` (currently unused), and `txt`. In total, this should be the file tree:
+This program requires a file called `JaiSeqs.arc` in the folder `data`. You will need to supply this file as I'm fairly certain I can't legally just publish it on the internet. It's really not hard to get (there's this wonderful thing called Google), but you will have to supply it yourself. Run `make scaffold`; it should give you the correct file tree. In total, this should be the file tree:
 ```
 root
   + bin
