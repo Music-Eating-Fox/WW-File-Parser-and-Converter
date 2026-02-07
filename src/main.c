@@ -152,25 +152,11 @@ int main(int argc, const char **argv) {
 
 		fseek(file_pointer_binary, rarc.header.file_data_offset + 0x20 + file_node.file_data_offset, SEEK_SET);
 
-		if (file_node.file_data_size > 2048) {
-			size_t read_size = 0;
+		buffer = realloc(buffer, (size_t)file_node.file_data_size * sizeof(u8));
+		fread(buffer, sizeof(u8), file_node.file_data_size, file_pointer_binary);
+		fread(buffer, sizeof(u8), file_node.file_data_size, target_file_pointer);
 
-			// while (file_node.file_data_size - read_size > 2048) {
-
-			// 	read_size += fread(buffer1, sizeof(u8), 2048, file_pointer_binary);
-				
-			// 	fwrite(buffer1, sizeof(u8), 2048, target_file_pointer);
-			// }
-
-			// fread(buffer1, sizeof(u8), file_node.file_data_size - read_size, file_pointer_binary);
-			// fread(buffer1, sizeof(u8), file_node.file_data_size - read_size, target_file_pointer);
-
-			buffer = realloc(buffer, (size_t)file_node.file_data_size * sizeof(u8));
-			fread(buffer, sizeof(u8), file_node.file_data_size, file_pointer_binary);
-			fread(buffer, sizeof(u8), file_node.file_data_size, target_file_pointer);
-
-			fwrite(buffer, sizeof(u8), file_node.file_data_size, target_file_pointer);
-		}
+		fwrite(buffer, sizeof(u8), file_node.file_data_size, target_file_pointer);
 
 		fclose(target_file_pointer);
 	}
