@@ -241,13 +241,13 @@ void convert_modulation(FILE *bms_pointer, FILE *midi_output_pointer) {
 	u8 modulation_msb = ((u8)(modulation >> 7)) & 0x7F;
 	u8 modulation_lsb = ((u8)(modulation >> 0)) & 0x7F;
 
-	if (modulation_msb == 0x00) {
-		fwrite_MIDI_track_event_controller(0x00, 0x01, modulation_lsb, midi_output_pointer);
-	} else {
+	// if (modulation_msb == 0x00) {
+	// 	fwrite_MIDI_track_event_controller(0x00, 0x01, modulation_lsb, midi_output_pointer);
+	// } else {
 		fwrite_MIDI_track_event_controller(0x00, 0x01, modulation_msb, midi_output_pointer);
 		fwrite_MIDI_variable_length       (0x00,                       midi_output_pointer);
 		fwrite_MIDI_track_event_controller(0x00, 0x33, modulation_lsb, midi_output_pointer);
-	}
+	// }
 }
 
 void BMS_to_MIDI(FILE *bms_pointer, FILE *midi_output_pointer) {
