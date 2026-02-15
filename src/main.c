@@ -1,5 +1,6 @@
 #include "io.h"
 #include "bms.h"
+#include "conversion.h"
 
 #include <string.h>
 #include <sys/types.h>
@@ -7,6 +8,25 @@
 #include <unistd.h>
 
 int main(int argc, const char **argv) {
+	// FILE *midi_output_pointer = fopen("./files/mid/house.mid", "w" );
+
+	// fwrite_MIDI_variable_length(0x00000000, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x00000040, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x0000007F, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x00000080, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x00002000, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x00003FFF, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x00004000, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x00100000, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x001FFFFF, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x00200000, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x08000000, midi_output_pointer);
+	// fwrite_MIDI_variable_length(0x0FFFFFFF, midi_output_pointer);
+
+	// fwrite_MIDI_track_event_note_off(1, 0x3C, 64, midi_output_pointer);
+
+	// return 0;
+
 	if (argv[1]) {
 		if (strcmp(argv[1], "convert") == 0) {
 			if (!argv[2]) {
@@ -16,23 +36,33 @@ int main(int argc, const char **argv) {
 
 			char input_file_name  [128];
 			char output_file_name [128];
+			char midi_file_name   [128];
 
 			snprintf(input_file_name,  sizeof(input_file_name),  "./files/bms/%s.bms",  argv[2]);
 			snprintf(output_file_name, sizeof(output_file_name), "./files/txt/%s.ansi", argv[2]);
+			snprintf(midi_file_name,   sizeof(midi_file_name),   "./files/mid/%s.mid",  argv[2]);
 
-			FILE *bms_pointer        = fopen(input_file_name,  "rb");
-			FILE *txt_output_pointer = fopen(output_file_name, "w" );
-			// FILE *txt_output_pointer = stderr;
+			FILE *bms_pointer         = fopen(input_file_name,  "rb");
+			FILE *txt_output_pointer  = fopen(output_file_name, "w" );
+			FILE *midi_output_pointer = fopen(midi_file_name,   "w" );
 
 			if (!bms_pointer) {
 				fprintf(stderr, "\033[1;41;37mFATAL: Failed to open file \"%s\"!\n\033[0m", input_file_name);
 			}
 
 			if (!txt_output_pointer) {
-				fprintf(stderr, "\033[1;41;37mFATAL: Failed to create output file \"%s\"!\n\033[0m", output_file_name);
+				fprintf(stderr, "\033[1;41;37mFATAL: Failed to create text output file \"%s\"!\n\033[0m", output_file_name);
 			}
 
-			BMS_parse(bms_pointer, txt_output_pointer);
+			if (!midi_output_pointer) {
+				fprintf(stderr, "\033[1;41;37mFATAL: Failed to create midi output file \"%s\"!\n\033[0m", midi_file_name);
+			}
+
+			// BMS_parse   (bms_pointer, txt_output_pointer );
+
+			fseek(bms_pointer, 0l, SEEK_SET);
+
+			BMS_to_MIDI (bms_pointer, midi_output_pointer);
 
 			return 0;
 		}

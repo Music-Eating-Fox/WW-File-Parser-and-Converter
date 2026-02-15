@@ -3,10 +3,13 @@
 #include "io.h"
 #include "types.h"
 
+#include "midi.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
 void BMS_parse_note_on(u8 current_byte, FILE *bms_pointer, FILE *txt_output_pointer) {
+
 	u8 key = current_byte;
 	u8 voice;
 	u8 velocity;
@@ -40,6 +43,8 @@ void BMS_parse_note_on(u8 current_byte, FILE *bms_pointer, FILE *txt_output_poin
 	}
 
 	fprintf(txt_output_pointer, "\n");
+
+
 }
 
 void BMS_parse_cmd_wait_byte(u8 current_byte, FILE *bms_pointer, FILE *txt_output_pointer) {
@@ -100,8 +105,29 @@ void BMS_parse_NULL(u8 current_byte, FILE *bms_pointer, FILE *txt_output_pointer
 		fread8(&param0, 1, bms_pointer);
 		fread8(&param1, 1, bms_pointer);
 
-		fprintf(txt_output_pointer, "Unknown: [param 0x%02X] [param 0x%02X]\n", param0, param1);
+		if (param0 == 0x20) {
+			fprintf(txt_output_pointer, "Set Bank: [Bank 0x%02X]\n", param1);
+		} else if (param0 == 0x21) {
+			fprintf(txt_output_pointer, "Set Program: [Bank 0x%02X]\n", param1);
+		} else {
+			fprintf(txt_output_pointer, "Unknown: [param 0x%02X] [param 0x%02X]\n", param0, param1);
+		}
+
+	} else if (current_byte == 0xAC || current_byte == 0xDD || current_byte == 0xEF) {
+		u8 param0, param1, param2;
+
+		fread8(&param0, 1, bms_pointer);
+		fread8(&param1, 1, bms_pointer);
+		fread8(&param2, 1, bms_pointer);
+
+		fprintf(txt_output_pointer, "Unknown: [param 0x%02X] [param 0x%02X] [param 0x%02X]\n", param0, param1, param2);
 	} else if (current_byte == 0xE6) {
+		u16 value;
+
+		fread16(&value, 1, bms_pointer);
+
+		fprintf(txt_output_pointer, "Modulation: [value %04X]\n", value);
+	} else if (current_byte == 0xE7) {
 		u16 value;
 
 		fread16(&value, 1, bms_pointer);
@@ -274,7 +300,7 @@ void BMS_parse_cmd_param_ii(u8 current_byte, FILE *bms_pointer, FILE *txt_output
 	}
 }
 
-void BMS_parse_cmd_open_track(u32 **stack_pointer, FILE *bms_pointer, FILE *txt_output_pointer) {
+void BMS_parse_cmd_open_track(FILE *bms_pointer, FILE *txt_output_pointer) {
 	u8 channel_number;
 	u8 track_pointer_array[3];
 
@@ -285,28 +311,11 @@ void BMS_parse_cmd_open_track(u32 **stack_pointer, FILE *bms_pointer, FILE *txt_
 		track_pointer_array[0] << 16 |
 		track_pointer_array[1] <<  8 |
 		track_pointer_array[2];
-		
-		
-	*(++(*stack_pointer)) = ftell(bms_pointer);
-
-	// fseek(bms_pointer, 0, SEEK_END);
-	// long end = ftell(bms_pointer);
-
-	// if (track_pointer > end) {
-	// 	fseek (bms_pointer, *(--stack_pointer), SEEK_SET);
-	// 	fprintf(txt_output_pointer, "cmdOpenTrack: [channel %d] [offset 0x%03X] [[ ERROR: NOT IN FILE ]]\n", channel_number, track_pointer);
-	// 	return;
-	// }
-
-	fseek(bms_pointer, (long)track_pointer, SEEK_SET);
 	
 	fprintf(txt_output_pointer, "cmdOpenTrack: [channel %d] [offset 0x%03X]\n", channel_number, track_pointer);
 }
 
-void BMS_parse_cmd_close_track(u32 **stack_pointer, FILE *bms_pointer, FILE *txt_output_pointer) {
-	fseek(bms_pointer, **stack_pointer, SEEK_SET);
-	(*stack_pointer)--;
-
+void BMS_parse_cmd_close_track(FILE *bms_pointer, FILE *txt_output_pointer) {
 	fprintf(txt_output_pointer, "cmdCloseTrack\n\n");
 }
 
@@ -471,21 +480,6 @@ void BMS_parse_cmd_prg(FILE *bms_pointer, FILE *txt_output_pointer) {
 }
 
 void BMS_parse_cmd_env_scale_set (FILE *bms_pointer, FILE *txt_output_pointer) {
-	// long new_position = ftell(bms_pointer) + 39l; // move forward 40 bytes (for some reason we need to remove 1) [should skip metadata?];
-
-	// fseek(bms_pointer, 0, SEEK_END);
-
-	// long end = ftell(bms_pointer);
-
-	// if (new_position > end) {
-	// 	new_position -= 39l * 8l;
-	// 	fseek (bms_pointer, new_position, SEEK_SET);
-	// 	fprintf(txt_output_pointer, "cmdEnvScaleSet [[ ERROR: OFFSET NOT IN FILE ]]\n");
-
-	// 	return;
-	// }
-
-	// fseek(bms_pointer, new_position, SEEK_SET);
 	u8 param0, param1;
 
 	fread8(&param0, 1, bms_pointer);
@@ -623,91 +617,91 @@ void BMS_parse(FILE *bms_pointer, FILE *txt_output_pointer) {
 
 	u8 current_byte;
 
-	u32  stack[256];
-	u32 *stack_pointer = &stack[0];
-
+	// In the event the program gets stuck in an infinite loop, kill the while loop if the number of
+	// iterations excedes the file size
 	fseek(bms_pointer, 0l, SEEK_END);
-	u64 safety_limit = ftell(bms_pointer) * 2l;
+	u64 safety_limit = ftell(bms_pointer);
 	fseek(bms_pointer, 0l, SEEK_SET);
 
 	u32 safety = 0;
 
 	while (
 		fread(&current_byte, 1, 1, bms_pointer) == 1 &&
-		safety++ < safety_limit &&
-		stack <= stack_pointer
+		safety++ < safety_limit
 	) {
+		// If the current byte is 0x00, it's probably the end of the file.
+		if (current_byte == 0x00) { break; }
 
 		fprintf(txt_output_pointer, "[0x%04lX] 0x%02X: ", ftell(bms_pointer) - 1l, current_byte);
 
-		if (current_byte >= 0x00 && current_byte <= 0x7F) { BMS_parse_note_on               (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0x80                        ) { BMS_parse_cmd_wait_byte         (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte >= 0x81 && current_byte <= 0x87) { BMS_parse_note_off              (current_byte,                txt_output_pointer); continue; }
-		if (current_byte == 0x88                        ) { BMS_parse_cmd_wait              (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte >= 0x89 && current_byte <= 0x9F) { BMS_parse_unknown               (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte >= 0xA0 && current_byte <= 0xAF) { BMS_parse_NULL                  (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xB0                        ) { BMS_parse_extended_opcode       (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xB1                        ) { BMS_parse_cmd_note_on           (                             txt_output_pointer); continue; }
-		if (current_byte == 0xB2                        ) { BMS_parse_cmd_note_off          (                             txt_output_pointer); continue; }
-		if (current_byte == 0xB3                        ) { BMS_parse_cmd_note              (                             txt_output_pointer); continue; }
-		if (current_byte == 0xB4                        ) { BMS_parse_cmd_set_last_note     (                             txt_output_pointer); continue; }
-		if (current_byte >= 0xB5 && current_byte <= 0xB7) { BMS_parse_NULL                  (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xB8                        ) { BMS_parse_cmd_param_e           (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xB9                        ) { BMS_parse_cmd_param_i           (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xBA                        ) { BMS_parse_cmd_param_ei          (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xBB                        ) { BMS_parse_cmd_param_ii          (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte >= 0xBC && current_byte <= 0xC0) { BMS_parse_NULL                  (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xC1                        ) { BMS_parse_cmd_open_track        (&stack_pointer, bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xC2                        ) { BMS_parse_cmd_close_track       (&stack_pointer, bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xC3                        ) { BMS_parse_cmd_call              (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xC4                        ) { BMS_parse_cmd_call_f            (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xC5                        ) { BMS_parse_cmd_ret               (                             txt_output_pointer); continue; }
-		if (current_byte == 0xC6                        ) { BMS_parse_cmd_ret_f             (                             txt_output_pointer); continue; }
-		if (current_byte == 0xC7                        ) { BMS_parse_cmd_jmp               (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xC8                        ) { BMS_parse_cmd_jmp_f             (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xC9                        ) { BMS_parse_cmd_jmp_table         (                             txt_output_pointer); continue; }
-		if (current_byte == 0xCA                        ) { BMS_parse_cmd_call_table        (                             txt_output_pointer); continue; }
-		if (current_byte == 0xCB                        ) { BMS_parse_cmd_loop_s            (                             txt_output_pointer); continue; }
-		if (current_byte == 0xCC                        ) { BMS_parse_cmd_loop_e            (                             txt_output_pointer); continue; }
-		if (current_byte >= 0xCD && current_byte <= 0xCF) { BMS_parse_NULL                  (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xD0                        ) { BMS_parse_cmd_read_port         (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xD1                        ) { BMS_parse_cmd_write_port        (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xD2                        ) { BMS_parse_cmd_check_port_import (                             txt_output_pointer); continue; }
-		if (current_byte == 0xD3                        ) { BMS_parse_cmd_check_port_export (                             txt_output_pointer); continue; }
-		if (current_byte == 0xD4                        ) { BMS_parse_cmd_parent_write_port (                             txt_output_pointer); continue; }
-		if (current_byte == 0xD5                        ) { BMS_parse_cmd_child_write_port  (                             txt_output_pointer); continue; }
-		if (current_byte == 0xD6                        ) { BMS_parse_cmd_parent_read_port  (                             txt_output_pointer); continue; }
-		if (current_byte == 0xD7                        ) { BMS_parse_cmd_child_read_port   (                             txt_output_pointer); continue; }
-		if (current_byte == 0xD8                        ) { BMS_parse_cmd_reg_load          (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xD9 || current_byte == 0xDA) { BMS_parse_cmd_reg               (current_byte,                txt_output_pointer); continue; }
-		if (current_byte == 0xDB                        ) { BMS_parse_cmd_reg_uni           (                             txt_output_pointer); continue; }
-		if (current_byte == 0xDC                        ) { BMS_parse_cmd_reg_tbl_load      (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte >= 0xDD && current_byte <= 0xDF) { BMS_parse_NULL                  (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xE0                        ) { BMS_parse_cmd_tempo             (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xE1                        ) { BMS_parse_cmd_bank_prg          (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xE2                        ) { BMS_parse_cmd_bank              (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xE3                        ) { BMS_parse_cmd_prg               (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte >= 0xE4 && current_byte <= 0xE6) { BMS_parse_NULL                  (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xE7                        ) { BMS_parse_cmd_env_scale_set     (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xE8                        ) { BMS_parse_cmd_env_set           (                             txt_output_pointer); continue; }
-		if (current_byte == 0xE9                        ) { BMS_parse_cmd_simple_adsr       (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xEA                        ) { BMS_parse_cmd_bus_connect       (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xEB                        ) { BMS_parse_cmd_iir_cut_off       (                             txt_output_pointer); continue; }
-		if (current_byte == 0xEC                        ) { BMS_parse_cmd_iir_set           (                             txt_output_pointer); continue; }
-		if (current_byte == 0xED                        ) { BMS_parse_cmd_fir_set           (                             txt_output_pointer); continue; }
-		if (current_byte == 0xEE || current_byte == 0xEF) { BMS_parse_NULL                  (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xF0                        ) { BMS_parse_cmd_wait              (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xF1                        ) { BMS_parse_cmd_wait_byte         (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xF2                        ) { BMS_parse_NULL                  (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xF3                        ) { BMS_parse_cmd_set_int_table     (                             txt_output_pointer); continue; }
-		if (current_byte == 0xF4                        ) { BMS_parse_cmd_set_interrupt     (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xF5                        ) { BMS_parse_cmd_dis_interrupt     (                             txt_output_pointer); continue; }
-		if (current_byte == 0xF6                        ) { BMS_parse_cmd_int_timer         (                             txt_output_pointer); continue; }
-		if (current_byte == 0xF7                        ) { BMS_parse_cmd_sync_cpu          (                             txt_output_pointer); continue; }
-		if (current_byte >= 0xF8 && current_byte <= 0xFC) { BMS_parse_NULL                  (current_byte,   bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xFD                        ) { BMS_parse_cmd_tempo             (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xFE                        ) { BMS_parse_cmd_PPQN_set          (                bms_pointer, txt_output_pointer); continue; }
-		if (current_byte == 0xFF                        ) { BMS_parse_cmd_close_track       (&stack_pointer, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte >= 0x01 && current_byte <= 0x7F) { BMS_parse_note_on               (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0x80                        ) { BMS_parse_cmd_wait_byte         (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte >= 0x81 && current_byte <= 0x87) { BMS_parse_note_off              (current_byte,              txt_output_pointer); continue; }
+		if (current_byte == 0x88                        ) { BMS_parse_cmd_wait              (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte >= 0x89 && current_byte <= 0x9F) { BMS_parse_unknown               (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte >= 0xA0 && current_byte <= 0xAF) { BMS_parse_NULL                  (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xB0                        ) { BMS_parse_extended_opcode       (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xB1                        ) { BMS_parse_cmd_note_on           (                           txt_output_pointer); continue; }
+		if (current_byte == 0xB2                        ) { BMS_parse_cmd_note_off          (                           txt_output_pointer); continue; }
+		if (current_byte == 0xB3                        ) { BMS_parse_cmd_note              (                           txt_output_pointer); continue; }
+		if (current_byte == 0xB4                        ) { BMS_parse_cmd_set_last_note     (                           txt_output_pointer); continue; }
+		if (current_byte >= 0xB5 && current_byte <= 0xB7) { BMS_parse_NULL                  (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xB8                        ) { BMS_parse_cmd_param_e           (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xB9                        ) { BMS_parse_cmd_param_i           (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xBA                        ) { BMS_parse_cmd_param_ei          (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xBB                        ) { BMS_parse_cmd_param_ii          (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte >= 0xBC && current_byte <= 0xC0) { BMS_parse_NULL                  (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xC1                        ) { BMS_parse_cmd_open_track        (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xC2                        ) { BMS_parse_cmd_close_track       (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xC3                        ) { BMS_parse_cmd_call              (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xC4                        ) { BMS_parse_cmd_call_f            (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xC5                        ) { BMS_parse_cmd_ret               (                           txt_output_pointer); continue; }
+		if (current_byte == 0xC6                        ) { BMS_parse_cmd_ret_f             (                           txt_output_pointer); continue; }
+		if (current_byte == 0xC7                        ) { BMS_parse_cmd_jmp               (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xC8                        ) { BMS_parse_cmd_jmp_f             (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xC9                        ) { BMS_parse_cmd_jmp_table         (                           txt_output_pointer); continue; }
+		if (current_byte == 0xCA                        ) { BMS_parse_cmd_call_table        (                           txt_output_pointer); continue; }
+		if (current_byte == 0xCB                        ) { BMS_parse_cmd_loop_s            (                           txt_output_pointer); continue; }
+		if (current_byte == 0xCC                        ) { BMS_parse_cmd_loop_e            (                           txt_output_pointer); continue; }
+		if (current_byte >= 0xCD && current_byte <= 0xCF) { BMS_parse_NULL                  (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xD0                        ) { BMS_parse_cmd_read_port         (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xD1                        ) { BMS_parse_cmd_write_port        (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xD2                        ) { BMS_parse_cmd_check_port_import (                           txt_output_pointer); continue; }
+		if (current_byte == 0xD3                        ) { BMS_parse_cmd_check_port_export (                           txt_output_pointer); continue; }
+		if (current_byte == 0xD4                        ) { BMS_parse_cmd_parent_write_port (                           txt_output_pointer); continue; }
+		if (current_byte == 0xD5                        ) { BMS_parse_cmd_child_write_port  (                           txt_output_pointer); continue; }
+		if (current_byte == 0xD6                        ) { BMS_parse_cmd_parent_read_port  (                           txt_output_pointer); continue; }
+		if (current_byte == 0xD7                        ) { BMS_parse_cmd_child_read_port   (                           txt_output_pointer); continue; }
+		if (current_byte == 0xD8                        ) { BMS_parse_cmd_reg_load          (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xD9 || current_byte == 0xDA) { BMS_parse_cmd_reg               (current_byte,              txt_output_pointer); continue; }
+		if (current_byte == 0xDB                        ) { BMS_parse_cmd_reg_uni           (                           txt_output_pointer); continue; }
+		if (current_byte == 0xDC                        ) { BMS_parse_cmd_reg_tbl_load      (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte >= 0xDD && current_byte <= 0xDF) { BMS_parse_NULL                  (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xE0                        ) { BMS_parse_cmd_tempo             (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xE1                        ) { BMS_parse_cmd_bank_prg          (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xE2                        ) { BMS_parse_cmd_bank              (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xE3                        ) { BMS_parse_cmd_prg               (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte >= 0xE4 && current_byte <= 0xE6) { BMS_parse_NULL                  (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xE7                        ) { BMS_parse_cmd_env_scale_set     (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xE8                        ) { BMS_parse_cmd_env_set           (                           txt_output_pointer); continue; }
+		if (current_byte == 0xE9                        ) { BMS_parse_cmd_simple_adsr       (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xEA                        ) { BMS_parse_cmd_bus_connect       (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xEB                        ) { BMS_parse_cmd_iir_cut_off       (                           txt_output_pointer); continue; }
+		if (current_byte == 0xEC                        ) { BMS_parse_cmd_iir_set           (                           txt_output_pointer); continue; }
+		if (current_byte == 0xED                        ) { BMS_parse_cmd_fir_set           (                           txt_output_pointer); continue; }
+		if (current_byte == 0xEE || current_byte == 0xEF) { BMS_parse_NULL                  (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xF0                        ) { BMS_parse_cmd_wait              (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xF1                        ) { BMS_parse_cmd_wait_byte         (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xF2                        ) { BMS_parse_NULL                  (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xF3                        ) { BMS_parse_cmd_set_int_table     (                           txt_output_pointer); continue; }
+		if (current_byte == 0xF4                        ) { BMS_parse_cmd_set_interrupt     (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xF5                        ) { BMS_parse_cmd_dis_interrupt     (                           txt_output_pointer); continue; }
+		if (current_byte == 0xF6                        ) { BMS_parse_cmd_int_timer         (                           txt_output_pointer); continue; }
+		if (current_byte == 0xF7                        ) { BMS_parse_cmd_sync_cpu          (                           txt_output_pointer); continue; }
+		if (current_byte >= 0xF8 && current_byte <= 0xFC) { BMS_parse_NULL                  (current_byte, bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xFD                        ) { BMS_parse_cmd_tempo             (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xFE                        ) { BMS_parse_cmd_PPQN_set          (              bms_pointer, txt_output_pointer); continue; }
+		if (current_byte == 0xFF                        ) { BMS_parse_cmd_close_track       (              bms_pointer, txt_output_pointer); continue; }
  
 	}
 }
