@@ -205,28 +205,35 @@ void convert_param(u8 opCode, FILE *bms_pointer, FILE *midi_output_pointer) {
 		#endif
 
 		// Write to general contoller that should have no effect until we know what it does
-		fwrite_MIDI_track_event_controller(0x00, 0x48, 0x00, midi_output_pointer);
+		// fwrite_MIDI_track_meta_event_text(TEXT_EVENT, " ", midi_output_pointer);
+		fwrite_MIDI_track_event_controller     (0x00, 0x04, 0x00,  midi_output_pointer);
 
 		return;
 	}
 
-	if (opCode != 0xA4) {
-		fread8(&value1, 1, bms_pointer);
-	}
+	fread8(&value1, 1, bms_pointer);
 
 	#ifdef WALK_THROUGH
 		if (opCode != 0xA4) { fprintf(stdout, "Write [ %02X %02X %02X %02X ] as ", opCode, target, value0, value1); }
-		else                { fprintf(stdout, "Write [ %02X %02X %02X ] as ",      opCode, target, value0        ); }
 	#endif
 
-	if      (target == 0x00) { fwrite_MIDI_track_event_controller(0x00, 0x07,   value0, midi_output_pointer); }
-	else if (target == 0x01) { fwrite_MIDI_track_event_pitch_bend(0x00, value0, value1, midi_output_pointer); }
-	else if (target == 0x02) { fwrite_MIDI_track_event_controller(0x00, 0x91,   value0, midi_output_pointer); }
-	else if (target == 0x03) { fwrite_MIDI_track_event_controller(0x00, 0x10,   value0, midi_output_pointer); }
+	if      (target == 0x00) { fwrite_MIDI_track_event_controller(0x00, 0x07,   value0,        midi_output_pointer); }
+	else if (target == 0x01) { fwrite_MIDI_track_event_pitch_bend(0x00, value0, value1 + 0x40, midi_output_pointer); }
+	else if (target == 0x02) { fwrite_MIDI_track_event_controller(0x00, 0x91,   value0,        midi_output_pointer); }
+	else if (target == 0x03) { fwrite_MIDI_track_event_controller(0x00, 0x0A,   value0,        midi_output_pointer); }
 }
 
-void convert_bank_prg() {
+void convert_bank_prg(FILE *bms_pointer, FILE *midi_output_pointer) {
+	u8 target;
+	u8 value;
 
+	fread8(&target, 1, bms_pointer);
+	fread8(&value,  1, bms_pointer);
+
+	if      (target == 0x20) { fwrite_MIDI_track_event_controller     (0x00, 0x00, value, midi_output_pointer); }
+	else if (target == 0x20) { fwrite_MIDI_track_event_program_change (0x00,       value, midi_output_pointer); }
+	// else                     { fwrite_MIDI_track_meta_event_text      (TEXT_EVENT, " ",   midi_output_pointer); }
+	else                     { fwrite_MIDI_track_event_controller     (0x00, 0x04, 0x00,  midi_output_pointer); }
 }
 
 void convert_modulation(FILE *bms_pointer, FILE *midi_output_pointer) {
@@ -320,14 +327,6 @@ void BMS_to_MIDI(FILE *bms_pointer, FILE *midi_output_pointer) {
 		}
 
 		if (
-			current_byte == 0x9A ||
-			current_byte == 0x9C
-		) {
-			fseek(bms_pointer, 3l, SEEK_CUR);
-			goto CLEANUP;
-		}
-
-		if (
 			current_byte == 0xC4 ||
 			current_byte == 0xC8
 		) {
@@ -342,7 +341,11 @@ void BMS_to_MIDI(FILE *bms_pointer, FILE *midi_output_pointer) {
 		if (current_byte == 0xE7                        ) { convert_track_open    (&header,      track_headers, track_pointers, &current_track, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
 		if (current_byte == 0xFD                        ) { convert_tempo         (                                                             bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
 		if (current_byte == 0xE6                        ) { convert_modulation    (                                                             bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
-		if (current_byte == 0x98 || current_byte == 0xA4) { convert_param         (current_byte,                                                bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
+		if (
+			current_byte == 0x98 || current_byte == 0x9A ||
+			current_byte == 0x9C
+		)                                                 { convert_param         (current_byte,                                                bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
+		if (current_byte == 0xA4                        ) { convert_bank_prg      (                                                             bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
 
 		#ifdef WALK_THROUGH
 			fprintf(stderr, "[UNHANLDED BYTE] 0x%02X\n", current_byte);

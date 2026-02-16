@@ -42,21 +42,9 @@ int main(int argc, const char **argv) {
 			snprintf(output_file_name, sizeof(output_file_name), "./files/txt/%s.ansi", argv[2]);
 			snprintf(midi_file_name,   sizeof(midi_file_name),   "./files/mid/%s.mid",  argv[2]);
 
-			FILE *bms_pointer         = fopen(input_file_name,  "rb");
-			FILE *txt_output_pointer  = fopen(output_file_name, "w" );
-			FILE *midi_output_pointer = fopen(midi_file_name,   "w" );
-
-			if (!bms_pointer) {
-				fprintf(stderr, "\033[1;41;37mFATAL: Failed to open file \"%s\"!\n\033[0m", input_file_name);
-			}
-
-			if (!txt_output_pointer) {
-				fprintf(stderr, "\033[1;41;37mFATAL: Failed to create text output file \"%s\"!\n\033[0m", output_file_name);
-			}
-
-			if (!midi_output_pointer) {
-				fprintf(stderr, "\033[1;41;37mFATAL: Failed to create midi output file \"%s\"!\n\033[0m", midi_file_name);
-			}
+			FILE *bms_pointer         = fopen(input_file_name,  "rb"); if (!bms_pointer        ) { fprintf(stderr, "\033[1;41;37mFATAL: Failed to open file \"%s\"!\n\033[0m",               input_file_name ); return 1; }
+			FILE *txt_output_pointer  = fopen(output_file_name, "w" ); if (!txt_output_pointer ) { fprintf(stderr, "\033[1;41;37mFATAL: Failed to create text output file \"%s\"!\n\033[0m", output_file_name); return 1; }
+			FILE *midi_output_pointer = fopen(midi_file_name,   "w" ); if (!midi_output_pointer) { fprintf(stderr, "\033[1;41;37mFATAL: Failed to create midi output file \"%s\"!\n\033[0m", midi_file_name  ); return 1; }
 
 			// BMS_parse   (bms_pointer, txt_output_pointer );
 
