@@ -115,10 +115,8 @@ void convert_track_define(MIDI_Header_Chunk *header, MIDI_Track_Chunk_Header *tr
 	fread8(&channel_number,      1, bms_pointer);
 	fread8( track_pointer_array, 3, bms_pointer);
 
-	// Since track 0 is the global track in MIDI, and the global track is not defined with track define command in the BMS,
-	// we assume track 0 until a track open, and since the first track in the BMS is track 0, we add one to that.
-	track_headers[channel_number + 1].name   = 0x6B72544D; // 0x4D54726B
-	track_headers[channel_number + 1].length = 0x00; // 0x4D54726B
+	track_headers[channel_number].name   = 0x6B72544D; // 0x4D54726B
+	track_headers[channel_number].length = 0x00; // 0x4D54726B
 
 	if (header->num_tracks > 1) {
 		header->format = 0x0100;
@@ -134,7 +132,12 @@ void convert_track_open(MIDI_Header_Chunk *header, MIDI_Track_Chunk_Header *trac
 
 	fread8(stuff, 2, bms_pointer);
 
-	track_pointers[++(*current_track)] = ftell(midi_output_pointer);
+	(*current_track)++;
+
+	// Avoid percussion track
+	if (*current_track == 10) { (*current_track)++; }
+
+	track_pointers[*current_track] = ftell(midi_output_pointer);
 
 	#ifdef WALK_THROUGH
 		fprintf(stdout, "track_pointers[%llu]: 0x%llX\n", *current_track, track_pointers[*current_track]);
@@ -336,16 +339,16 @@ void BMS_to_MIDI(FILE *bms_pointer, FILE *midi_output_pointer) {
 
 		if (!was_delta_time_before) { fwrite_MIDI_variable_length(0x00, midi_output_pointer); was_delta_time_before = 1; }
 
-		if (current_byte >= 0x01 && current_byte <= 0x7F) { convert_note_on       (current_byte, note_in_voice,                  current_track, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
-		if (current_byte >= 0x81 && current_byte <= 0x87) { convert_note_off      (current_byte, note_in_voice,                  current_track, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
-		if (current_byte == 0xE7                        ) { convert_track_open    (&header,      track_headers, track_pointers, &current_track, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
-		if (current_byte == 0xFD                        ) { convert_tempo         (                                                             bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
-		if (current_byte == 0xE6                        ) { convert_modulation    (                                              current_track, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
+		if (current_byte >= 0x01 && current_byte <= 0x7F) { convert_note_on       (current_byte, note_in_voice,                  current_track - 1, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
+		if (current_byte >= 0x81 && current_byte <= 0x87) { convert_note_off      (current_byte, note_in_voice,                  current_track - 1, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
+		if (current_byte == 0xE7                        ) { convert_track_open    (&header,      track_headers, track_pointers, &current_track,     bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
+		if (current_byte == 0xFD                        ) { convert_tempo         (                                                                 bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
+		if (current_byte == 0xE6                        ) { convert_modulation    (                                              current_track - 1, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
 		if (
 			current_byte == 0x98 || current_byte == 0x9A ||
 			current_byte == 0x9C
-		)                                                 { convert_param         (current_byte,                                 current_track, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
-		if (current_byte == 0xA4                        ) { convert_bank_prg      (                                              current_track, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
+		)                                                 { convert_param         (current_byte,                                 current_track - 1, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
+		if (current_byte == 0xA4                        ) { convert_bank_prg      (                                              current_track - 1, bms_pointer, midi_output_pointer); was_delta_time_before = 0; continue; }
 
 		#ifdef WALK_THROUGH
 			fprintf(stderr, "[UNHANLDED BYTE] 0x%02X\n", current_byte);
